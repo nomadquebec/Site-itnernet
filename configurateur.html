@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Configurateur - Nomad Québec</title>
+    
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #111;
+        color: #fff;
+        text-align: center;
+        padding: 2rem;
+    }
+    nav {
+        background: #222;
+        padding: 1rem;
+    }
+    nav a {
+        color: #fff;
+        margin: 0 10px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    h1 {
+        margin-top: 2rem;
+        font-size: 2.5rem;
+    }
+    label, select, input {
+        display: block;
+        margin: 10px auto;
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+</style>
+
+</head>
+<body>
+    
+<nav>
+    <a href="index.html">Accueil</a>
+    <a href="packs.html">Packs Survie</a>
+    <a href="configurateur.html">Configurateur</a>
+    <a href="carte.html">Carte Nomad</a>
+    <a href="telechargements.html">Téléchargements</a>
+</nav>
+
+    <h1>Configurateur</h1>
+    <form id="config-form">
+        <label>Taille du conteneur :
+            <select id="taille">
+                <option value="10000">10'</option>
+                <option value="20000">20'</option>
+                <option value="30000">40'</option>
+            </select>
+        </label>
+        <label>Modèle :
+            <select id="modele">
+                <option value="0">Rustique</option>
+                <option value="2000">Camouflage (+2000$)</option>
+                <option value="4000">Urbain (+4000$)</option>
+                <option value="8000">Bunker (+8000$)</option>
+            </select>
+        </label>
+        <label>Options :
+            <input type="checkbox" value="3000"> Électricité (+3000$)<br>
+            <input type="checkbox" value="2500"> Chauffage (+2500$)<br>
+            <input type="checkbox" value="3500"> Cuisine complète (+3500$)<br>
+        </label>
+        <p><strong>Total : <span id="total">0</span> $</strong></p>
+        <p>Numéro de commande : <strong id="order">#53</strong></p>
+    </form>
+    <script>
+        let count = 53;
+        const form = document.getElementById("config-form");
+        const totalSpan = document.getElementById("total");
+        const orderSpan = document.getElementById("order");
+
+        function updateTotal() {
+            let total = parseInt(document.getElementById("taille").value);
+            total += parseInt(document.getElementById("modele").value);
+            const options = form.querySelectorAll("input[type=checkbox]:checked");
+            options.forEach(opt => total += parseInt(opt.value));
+            totalSpan.textContent = total;
+            orderSpan.textContent = "#" + count;
+        }
+
+        form.addEventListener("change", updateTotal);
+        updateTotal();
+    </script>
+</body>
+</html>
